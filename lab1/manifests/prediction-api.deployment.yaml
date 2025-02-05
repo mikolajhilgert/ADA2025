@@ -16,15 +16,15 @@ spec:
         app: prediction-api
     spec:
       containers:
-      - image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/prediction-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id, location, and repository
-        name: prediction-api
-        ports:
-        - containerPort: 5000
-          protocol: TCP
-        env:
-        - name: PROJECT_ID
-          value: ada2025-449714  # use your project id
-        - name: MODEL_REPO
-          value: ada2025_models # use your GCP bucket id
-        - name: MODEL_NAME
-          value: model.h5
+        - image: LOCATION-docker.pkg.dev/ada-mh/labrepo/prediction-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id, location, and repository
+          name: prediction-api
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          env:
+            - name: PROJECT_ID
+              value: ada-mh # use your project id
+            - name: MODEL_REPO
+              value: ada-models-mh # use your GCP bucket id
+            - name: MODEL_NAME
+              value: model.h5
