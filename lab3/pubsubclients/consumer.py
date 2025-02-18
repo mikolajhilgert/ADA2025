@@ -16,14 +16,15 @@ def create_subscription(project_id, topic_id, subscription_id):
             )
         logging.info(f"Subscription created: {subscription}")
     except Exception as ex:
-        logging.info(f"Error creating subscription {subscription_id} , the exception: {ex}.")
+        logging.info(
+            f"Error creating subscription {subscription_id} , the exception: {ex}."
+        )
         logging.info(ex)
 
 
 def pull_message(project, subscription):
-    subscription_name = 'projects/{project_id}/subscriptions/{sub}'.format(
-        project_id=project,
-        sub=subscription
+    subscription_name = "projects/{project_id}/subscriptions/{sub}".format(
+        project_id=project, sub=subscription
     )
 
     with pubsub_v1.SubscriberClient() as subscriber:
@@ -31,7 +32,9 @@ def pull_message(project, subscription):
         try:
             future.result()
         except Exception as ex:
-            logging.info(f"Listening for messages on {subscription_name} threw an exception: {ex}.")
+            logging.info(
+                f"Listening for messages on {subscription_name} threw an exception: {ex}."
+            )
             time.sleep(30)
 
 
@@ -40,7 +43,9 @@ def callback(message):
     message.ack()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
-    create_subscription("your project id", "diabetes_res", "diabetes_res_sub")
-    pull_message(project="your project id", subscription="diabetes_res_sub")  # replace your project id
+    create_subscription("ada-mh", "diabetes_res", "diabetes_res_sub")
+    pull_message(
+        project="ada-mh", subscription="diabetes_res_sub"
+    )  # replace your project id

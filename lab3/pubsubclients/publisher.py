@@ -8,6 +8,7 @@ from google.cloud import pubsub_v1
 # https://github.com/googleapis/python-pubsub/blob/master/samples/snippets/publisher.py
 # https://github.com/googleapis/python-pubsub/blob/master/samples/snippets/subscriber.py
 
+
 def create_topic(project_id, topic_id):
     try:
         publisher = pubsub_v1.PublisherClient()
@@ -15,7 +16,9 @@ def create_topic(project_id, topic_id):
         topic = publisher.create_topic(request={"name": topic_path})
         logging.info("Created topic: {}".format(topic.name))
     except Exception as ex:
-        logging.info(ex)  # instead, can check if there is a topic already, and only if not create a new one
+        logging.info(
+            ex
+        )  # instead, can check if there is a topic already, and only if not create a new one
 
 
 def publish_message(project_id, topic_id, message):
@@ -29,7 +32,7 @@ def publish_message(project_id, topic_id, message):
     logging.info(f"Published messages to {topic_path}.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
     data = [
         {
@@ -40,8 +43,8 @@ if __name__ == '__main__':
             "si": 0,
             "bmi": 30.1,
             "dpf": 0.349,
-            "age": 47
+            "age": 47,
         }
     ]
     data = json.dumps(data).encode("utf-8")
-    publish_message("your project id", "diabetes_req", data)  # replace your project id
+    publish_message("ada-mh", "diabetes_req", data)  # replace your project id
