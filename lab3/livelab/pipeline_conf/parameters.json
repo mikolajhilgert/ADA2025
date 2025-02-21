@@ -2,5 +2,5 @@
   "project_id": "ada-mh",
   "data_bucket": "ada-data-mh",
   "trainset_filename": "training_set.csv",
-  "model_repo": "ada-model-mh"
+  "model_repo": "ada-models-mh"
 }
