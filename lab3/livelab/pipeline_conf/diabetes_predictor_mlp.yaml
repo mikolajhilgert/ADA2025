@@ -44,33 +44,33 @@ deploymentSpec:
     exec-data-ingestion:
       container:
         args:
-        - --project_id
-        - '{{$.inputs.parameters[''project'']}}'
-        - --bucket
-        - '{{$.inputs.parameters[''bucket'']}}'
-        - --file_name
-        - '{{$.inputs.parameters[''data_file_name'']}}'
-        - --feature_path
-        - '{{$.outputs.artifacts[''features''].path}}'
+          - --project_id
+          - "{{$.inputs.parameters['project']}}"
+          - --bucket
+          - "{{$.inputs.parameters['bucket']}}"
+          - --file_name
+          - "{{$.inputs.parameters['data_file_name']}}"
+          - --feature_path
+          - "{{$.outputs.artifacts['features'].path}}"
         command:
-        - python3
-        - /pipelines/component/src/component.py
-        image: us-central1-docker.pkg.dev/ada2025-449714/labrepo/dataingestor:0.0.1
+          - python3
+          - /pipelines/component/src/component.py
+        image: us-central1-docker.pkg.dev/ada-mh/labrepo/dataingestor:0.0.1
     exec-mlp-training:
       container:
         args:
-        - --project_id
-        - '{{$.inputs.parameters[''project'']}}'
-        - --feature_path
-        - '{{$.inputs.artifacts[''features''].path}}'
-        - --model_repo
-        - '{{$.inputs.parameters[''model_bucket'']}}'
-        - --metrics_path
-        - '{{$.outputs.parameters[''metrics''].output_file}}'
+          - --project_id
+          - "{{$.inputs.parameters['project']}}"
+          - --feature_path
+          - "{{$.inputs.artifacts['features'].path}}"
+          - --model_repo
+          - "{{$.inputs.parameters['model_bucket']}}"
+          - --metrics_path
+          - "{{$.outputs.parameters['metrics'].output_file}}"
         command:
-        - python3
-        - /pipelines/component/src/component.py
-        image: us-central1-docker.pkg.dev/ada2025-449714/labrepo/mlptrainer:0.0.1
+          - python3
+          - /pipelines/component/src/component.py
+        image: us-central1-docker.pkg.dev/ada-mh/labrepo/mlptrainer:0.0.1
 pipelineInfo:
   name: diabetes-predictor-mlp
 root:
@@ -97,7 +97,7 @@ root:
         componentRef:
           name: comp-mlp-training
         dependentTasks:
-        - data-ingestion
+          - data-ingestion
         inputs:
           artifacts:
             features:
