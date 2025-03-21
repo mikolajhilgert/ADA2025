@@ -17,14 +17,15 @@ def create_subscription(project_id, topic_id, subscription_id):
             )
         logging.info(f"Subscription created: {subscription}")
     except Exception as ex:
-        logging.info(f"Error creating subscription {subscription_id} , the exception: {ex}.")
+        logging.info(
+            f"Error creating subscription {subscription_id} , the exception: {ex}."
+        )
         logging.info(ex)
 
 
 def pull_message(project, subscription):
-    subscription_name = 'projects/{project_id}/subscriptions/{sub}'.format(
-        project_id=project,
-        sub=subscription
+    subscription_name = "projects/{project_id}/subscriptions/{sub}".format(
+        project_id=project, sub=subscription
     )
     logging.info(f"Reading data from created: {subscription_name}")
     with pubsub_v1.SubscriberClient() as subscriber:
@@ -33,7 +34,9 @@ def pull_message(project, subscription):
             future.result()
         except Exception as ex:
             logging.info(ex)
-            logging.info(f"Listening for messages on {subscription_name} threw an exception: {ex}.")
+            logging.info(
+                f"Listening for messages on {subscription_name} threw an exception: {ex}."
+            )
             time.sleep(30)
 
 
@@ -42,9 +45,11 @@ def callback(message):
     message.ack()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
-    schedule.every().minute.at(':00').do(pull_message, "your_project_id", "order_status_user_sub")
+    schedule.every().minute.at(":00").do(
+        pull_message, "ada-mh", "order_status_user_sub"
+    )
     while True:
         schedule.run_pending()
-        time.sleep(.1)
+        time.sleep(0.1)
